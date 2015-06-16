@@ -2,18 +2,13 @@ var should = require('should');
 var crypto = require('crypto');
 var helpers = require('./000_test_helpers');
 var kpio = require('../lib');
+var fs = require('fs');
 
 describe('Instantiating a KeyfileCredential', function()  {
 	it('should throw a KpioArgumentError when providing no keyfile', function() {
 		(function() {
-			new kpio.Credentials.Keyfile();	
-		}).should.throw(kpio.Errors.Argument);			
-	});
-
-	it('should throw a KpioGenericError when providing an inexistant keyfile', function() {
-		(function() {
-			new kpio.Credentials.Keyfile('/this-file-should-never-exist');	
-		}).should.throw(kpio.Errors.Generic);
+			new kpio.Credentials.Keyfile();
+		}).should.throw(kpio.Errors.Argument);
 	});
 
 	describe('by providing a XML keyfile', function() {
@@ -21,7 +16,7 @@ describe('Instantiating a KeyfileCredential', function()  {
 
 		it('should not throw any errors', function() {
 			(function() {
-				credential = new kpio.Credentials.Keyfile(helpers.respath('001_xml.key'));
+				credential = new kpio.Credentials.Keyfile(fs.readFileSync(helpers.respath('001_xml.key')));
 			}).should.not.throw();
 		});
 
@@ -41,7 +36,8 @@ describe('Instantiating a KeyfileCredential', function()  {
 
 		it('should not throw any errors', function() {
 			(function() {
-				credential = new kpio.Credentials.Keyfile(helpers.respath('001_binary.key'));
+				var keyFile = fs.readFileSync(helpers.respath('001_binary.key'));
+				credential = new kpio.Credentials.Keyfile(keyFile);
 			}).should.not.throw();
 		});
 

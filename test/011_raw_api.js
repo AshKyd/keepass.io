@@ -1,28 +1,29 @@
 var should = require('should');
+var fs = require('fs');
 var helpers = require('./000_test_helpers');
 var kpio = require('../lib');
-var RawApi = require('../lib/KeePass/APIs/RawApi')
+var RawApi = require('../lib/KeePass/APIs/RawApi');
 
 describe('Opening the example database', function() {
 	var db = null, dbCompatApi = null;
 	var dbPath = helpers.respath('000_example.kdbx');
 	var kfPath = helpers.respath('000_example.key');
-    
+
 	before(function(done) {
 		db = new kpio.Database();
 		db.addCredential(new kpio.Credentials.Password('nebuchadnezzar'));
-		db.addCredential(new kpio.Credentials.Keyfile(kfPath));
+		db.addCredential(new kpio.Credentials.Keyfile(fs.readFileSync(kfPath)));
 		db.loadFile(dbPath, function(err, api) {
 			if(err) return done(err);
 			dbCompatApi = api;
 			return done();
 		});
 	});
-	
+
 	it('should provide compatibility layer method #getRaw()', function() {
 		dbCompatApi.getRaw.should.be.an.instanceof(Function);
 	});
-	
+
 	it('should provide compatibility layer method #setRaw()', function() {
 		dbCompatApi.setRaw.should.be.an.instanceof(Function);
 	});
@@ -37,7 +38,7 @@ describe('Opening the example database', function() {
 		describe('and then calling #get()', function() {
 			it('should not throw any errors', function() {
 				(function() {
-					rawDatabase = db.getRawApi().get();    
+					rawDatabase = db.getRawApi().get();
 				}).should.not.throw();
 			});
 
@@ -48,7 +49,7 @@ describe('Opening the example database', function() {
 			it('should return a raw database with the name "KeePassIO Development Database"', function() {
 				rawDatabase.KeePassFile.Meta.DatabaseName.should.equal('KeePassIO Development Database');
 			});
-			
+
 			it('should return the same data as the compatibility layer method #getRaw()', function() {
 				var rawDb1 = JSON.stringify(dbCompatApi.getRaw());
 				var rawDb2 = JSON.stringify(rawDatabase);
@@ -69,7 +70,7 @@ describe('Opening the example database', function() {
 				}).should.not.throw();
 			});
 		});
-		
+
 		describe('and then calling compatibility layer method #setRaw()', function() {
 			it('without any parameters should throw a KpioArgumentError', function() {
 				(function() {

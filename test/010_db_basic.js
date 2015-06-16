@@ -1,4 +1,5 @@
 var should = require('should');
+var fs = require('fs');
 var helpers = require('./000_test_helpers');
 var kpio = require('../lib');
 
@@ -24,7 +25,7 @@ describe('Opening the example database', function() {
 		before(function() {
 			db = new kpio.Database();
 			db.addCredential(new kpio.Credentials.Password('nebuchadnezzar'));
-			db.addCredential(new kpio.Credentials.Keyfile(kfPath));
+			db.addCredential(new kpio.Credentials.Keyfile(fs.readFileSync(kfPath)));
 		});
 
 		it('should not throw any errors', function(done) {
