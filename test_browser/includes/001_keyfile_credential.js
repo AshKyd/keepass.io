@@ -1,6 +1,6 @@
 var should = require('should');
 var crypto = require('crypto');
-var kpio = require('../lib');
+var kpio = require('../../lib');
 var fs = require('fs');
 
 describe('Instantiating a KeyfileCredential', function()  {
@@ -15,7 +15,7 @@ describe('Instantiating a KeyfileCredential', function()  {
 
 		it('should not throw any errors', function() {
 			(function() {
-				credential = new kpio.Credentials.Keyfile(fs.readFileSync(helpers.respath('001_xml.key')));
+				credential = new kpio.Credentials.Keyfile(fs.readFileSync('../test/resources/001_xml.key'));
 			}).should.not.throw();
 		});
 
@@ -35,7 +35,7 @@ describe('Instantiating a KeyfileCredential', function()  {
 
 		it('should not throw any errors', function() {
 			(function() {
-				var keyFile = fs.readFileSync(helpers.respath('001_binary.key'));
+				var keyFile = fs.readFileSync('../test/resources/001_binary.key');
 				credential = new kpio.Credentials.Keyfile(keyFile);
 			}).should.not.throw();
 		});

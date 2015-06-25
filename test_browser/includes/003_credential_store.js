@@ -1,9 +1,8 @@
 var should = require('should');
 var crypto = require('crypto');
-var helpers = require('./000_test_helpers');
-var kpio = require('../lib');
-var CredentialStore = require('../lib/Utility/CredentialStore')
-var CredentialInterface = require('../lib/Interfaces/CredentialInterface');
+var kpio = require('../../lib');
+var CredentialStore = require('../../lib/Utility/CredentialStore')
+var CredentialInterface = require('../../lib/Interfaces/CredentialInterface');
 
 var LowPriorityCredential = dejavu.Class.declare({
 	$name: 'LowPriorityCredential',
