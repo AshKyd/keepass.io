@@ -120,12 +120,12 @@ describe('Instantiating a new KeePassHeader with predefined fields', function() 
 		describe('and then querying `TestField`', function() {
 			it('with #get() should return a Buffer', function() {
 				var value = header.get('TestField');
-				value.should.be.instanceof(Buffer);
+				Buffer.isBuffer(value).should.be.exactly(true);
 			});
 
 			it('with #getRaw() should return a Buffer', function() {
 				var value = header.getRaw('TestField');
-				value.should.be.instanceof(Buffer);
+				Buffer.isBuffer(value).should.be.exactly(true);
 			});
 
 			it('with #get() or #getRaw() should equal `Test String`', function() {
@@ -142,7 +142,7 @@ describe('Instantiating a new KeePassHeader with predefined fields', function() 
 
 			it('with #getRaw() should return a Buffer', function() {
 				var value = header.getRaw('IntegerField');
-				value.should.be.instanceof(Buffer);
+				Buffer.isBuffer(value).should.be.exactly(true);
 			});
 
 			it('with #get() should equal 3735927486', function() {
@@ -159,7 +159,7 @@ describe('Instantiating a new KeePassHeader with predefined fields', function() 
 
 			it('with #getRaw() should return a Buffer', function() {
 				var value = header.getRaw('QuadField');
-				value.should.be.instanceof(Buffer);
+				Buffer.isBuffer(value).should.be.exactly(true);
 			});
 
 			it('with #get() should equal 18446744073709552000', function() {

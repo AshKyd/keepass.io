@@ -1,8 +1,19 @@
+global.dejavu = require('dejavu');
 var should = require('should');
 var crypto = require('crypto');
 var helpers = require('./000_test_helpers');
 var kpio = require('../lib');
 var Cryptography = require('../lib/Utility/Cryptography');
+
+console.log('academic stuff below');
+var key = (new Array(33)).join('a');
+console.log(key.length);
+var cipher = crypto.createCipheriv('aes-256-ecb', key, '');
+				cipher.setAutoPadding(false);
+				key = cipher.update(key, 'binary', 'binary') + cipher.final('binary');
+console.log(crypto.createHash('md5').update(key).digest('hex'));
+
+console.log('end academic stuff');
 
 // Try to include native key transformation library
 try {
@@ -39,7 +50,7 @@ describe('Transforming the key `nebuchadnezzarneotrinitymorpheus`', function() {
 
 		before(function() {
 			keyBuffer = new Buffer(key, 'binary');
-			seedBuffer = new Buffer(seed, 'binary');	
+			seedBuffer = new Buffer(seed, 'binary');
 		});
 
 		function maybeIt(desc, fn) {

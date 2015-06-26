@@ -10,6 +10,11 @@ require('./includes/004_salsa20.js');
 require('./includes/005_cryptography.js');
 require('./includes/006_hbio.js');
 require('./includes/007_kp_header.js');
+require('./includes/008_salsa_manager.js');
+require('./includes/009_database.js');
+require('./includes/010_db_basic.js');
+require('./includes/011_raw_api.js');
+require('./includes/012_basic_api.js');
 
 //
 // var keyBuff = fs.readFileSync('../test/resources/000_example.key');
